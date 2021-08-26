@@ -1,10 +1,69 @@
 import random
 
+### FUTURE: ADD OPTION TO SELECT CATEGORY FOR WORD LIST (animals, food,etc)
+
 alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 words = ['cat','dog','pineapple','banana', 'forest', 'panda', 'Minnesota', 'basketball', 'train', 'finger', 'fire',
         'river', 'lake', 'rapper', 'airplane', 'racecar', 'house', 'jeans', 'Monopoly', 'strawberry', 'kitten', 'softball', 'soccer', 'volleyball',
         'avatar', 'movie', 'shoes', 'paper', 'money', 'heist', 'park', 'waterfall']
+
+#global variables
+
+man = {0:
+"______ \n"
+"|    | \n"
+"|      \n"
+"|      \n"
+"|      \n"
+"*      \n",
+1:
+"______ \n"
+"|    | \n"
+"|    O \n"
+"|      \n"
+"|      \n"
+"*      \n",
+2:
+"______ \n"
+"|    | \n"
+"|    O \n"
+"|    | \n"
+"|      \n"
+"*      \n",
+3:
+"______ \n"
+"|    | \n"
+"|    O \n"
+"|   \| \n"
+"|      \n"
+"*      \n",
+4:
+"______  \n"
+"|    |  \n"
+"|    O  \n"
+"|   \|/ \n"
+"|       \n"
+"*       \n",
+5:
+"______  \n"
+"|    |  \n"
+"|    O  \n"
+"|   \|/ \n"
+"|   /   \n"
+"*       \n",
+6:
+"______  \n"
+"|    |  \n"
+"|    O  \n"
+"|   \|/ \n"
+"|   / \ \n"
+"*       \n",
+}
+
+
+
+
 
 def hangman(): # will not be case sensitive
     word = random.choice(words)
@@ -12,7 +71,7 @@ def hangman(): # will not be case sensitive
     word = list(word)
     hidden = "_" * len(word) # hides letters in random word from list
     hidden = list(word)
-    max = 5 # max amount of wrong guesses before gg
+    max = 6 # max amount of wrong guesses before gg
     errors = 0 # number of errors so far
 
    # print(f"hidden word is: {hidden}")
@@ -29,6 +88,13 @@ def hangman(): # will not be case sensitive
         if guess not in used:
             used.append(guess)
             print("letters already used" ,used, "\n")
+        
+        else:
+            while guess in used:
+                print("already tried that letter, try again\n")
+                guess = input()
+            used.append(guess)
+            print("letters already used" ,used, "\n")
 
         if guess not in word:
             errors += 1
@@ -37,7 +103,8 @@ def hangman(): # will not be case sensitive
         for i in range(len(word)):
             if guess == word[i]:
                 hidden[i] = guess
-        print(hidden,"  errors left: ", max-errors, "\n")
+        print(hidden,"  errors left: ", max-errors)
+        print(man[errors])
 
 
         if hidden == word:
